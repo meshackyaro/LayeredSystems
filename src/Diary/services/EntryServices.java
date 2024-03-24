@@ -12,4 +12,5 @@ public interface EntryServices {
 
     void createEntry(CreateEntryRequest createEntryRequest);
 
+
 }
