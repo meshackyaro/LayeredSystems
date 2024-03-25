@@ -8,6 +8,9 @@ import Diary.data.repository.EntryRepositoryImpl;
 import Diary.dto.requests.CreateEntryRequest;
 import Diary.dto.requests.LoginRequest;
 import Diary.dto.requests.RegisterRequest;
+import Diary.exceptions.incorrectPasswordException.IncorrectPasswordException;
+import Diary.exceptions.invalidUsernameException.InvalidUsernameException;
+import Diary.exceptions.nullValueException.NullValueException;
 
 import java.util.List;
 
@@ -20,10 +23,23 @@ public class DiaryServicesImpl implements DiaryServices{
 
     @Override
     public void register(RegisterRequest registerRequests) {
-        Diary diary = new Diary("username", "password");
+        Diary diary = new Diary();
+        String username = registerRequests.getUsername();
+        if (username == null) throw new NullValueException("Diary cannot be null");
+        validate(username);
+        String password = registerRequests.getPassword();
+        validateThis(password);
         diary.setUsername(registerRequests.getUsername());
         diary.setPassword((registerRequests.getPassword()));
         diaryRepository.save(diary);
+    }
+    private void validate(String username) {
+        Diary diary = new Diary();
+        if (diary.getUsername() != username) throw new InvalidUsernameException("Invalid username");
+    }
+    private void validateThis(String password) {
+        Diary diary = new Diary();
+        if (diary.getPassword() != password) throw new IncorrectPasswordException("Incorrect Password");
     }
 
     @Override
@@ -52,6 +68,11 @@ public class DiaryServicesImpl implements DiaryServices{
     @Override
     public void delete(String title) {
         entryServices.deleteByTitle(title);
+    }
+
+    @Override
+    public boolean isLocked() {
+        return true;
     }
 
 

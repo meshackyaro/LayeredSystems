@@ -13,6 +13,10 @@ public class Diary {
         this.username = username;
         this.password = password;
     }
+
+    public Diary() {
+
+    }
 //    public  String  getUsername() {
 //        return username;
 //    }

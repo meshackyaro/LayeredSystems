@@ -11,7 +11,7 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class DiaryServicesImplTest {
     private DiaryServices diaryService;
@@ -162,6 +162,10 @@ public class DiaryServicesImplTest {
         createEntryRequest.setBody("body1");
         diaryService.createEntry(createEntryRequest1);
         assertEquals(2, diaryService.findAllEntries().size());
+    }
+    @Test
+    public void diaryIsLockedAtCreation_isLockedTest() {
+        assertTrue(diaryService.isLocked());
     }
 
 

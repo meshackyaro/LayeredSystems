@@ -19,4 +19,6 @@ public interface DiaryServices {
     List<Entry> findAllEntries();
 
     void delete(String title);
+
+    boolean isLocked();
 }
